@@ -1,0 +1,11 @@
+version: 2
+ 
+sources:
+  - name: "nz_public_data"
+    description: "NZ public website government data" 
+    database: "load"
+    schema: "NZ_PUBLIC_DATA"
+    loader: "NZ public website government data loaded into snowflakes"
+    tables:
+      - name: motor_vehicle_raw
+      - name: charging_station

@@ -1,0 +1,51 @@
+version: 2
+
+models:
+  - name: int_status_of_connector
+    description: >
+      Connector status indicators derived from charging connector configuration data.
+
+    columns:
+      - name: connector_config_id
+        description: "Unique identifier for a connector configuration."
+        tests:
+          - not_null
+          - unique
+
+      - name: first_operational_month
+        description: "The first month in which the connector became operational."
+        tests:
+          - not_null
+
+      - name: active_connector
+        description: >
+          Binary indicator equal to 1 when the connector status is Operative,
+          and 0 otherwise.
+        data_type: integer
+        tests:
+          - not_null
+          - accepted_values:
+              values: [0, 1]
+              quote: false
+
+      - name: negative_connector
+        description: >
+          Binary indicator equal to 1 when the connector status is Inoperative,
+          and 0 otherwise.
+        data_type: integer
+        tests:
+          - not_null
+          - accepted_values:
+              values: [0, 1]
+              quote: false
+
+      - name: unknown_status
+        description: >
+          Binary indicator equal to 1 when the connector status is Unknown,
+          and 0 otherwise.
+        data_type: integer
+        tests:
+          - not_null
+          - accepted_values:
+              values: [0, 1]
+              quote: false

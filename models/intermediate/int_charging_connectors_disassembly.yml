@@ -1,0 +1,59 @@
+version: 2
+
+models:
+  - name: int_charging_connectors_disassembly
+    description: >
+      Disassemble column 'Connector_list' into different columns and keep the column 'Connector List'.
+      The grain is one row per charging connector.
+
+    columns:
+      - name: connector_config_ID
+        description: "Combine riginal OBJECTID and number connector together and generate a new unique connector id."
+        tests:
+          - not_null
+          - unique
+
+      - name: Station_ID
+        description: "Original object ID comes from dataset."
+        tests:
+          - not_null
+          
+      - name: first_operational_month
+        description: "The first operational date in yyyy-mm format."
+        tests:
+          - not_null
+      
+      - name: connector_group_number
+        description: "Indicate the position of current connector configuration within this station."
+        tests:
+          - not_null
+
+      - name: connector_raw
+        description: "Original connector list."
+        tests:
+          - not_null
+
+      - name: current_type
+        description: "The type of electric current in each connector."
+        tests:
+          - not_null
+
+      - name: power_kw
+        description: "The power of each connector."
+        tests:
+          - not_null
+
+      - name: connector_type
+        description: "The type of each connector."
+        tests:
+          - not_null
+
+      - name: connector_status
+        description: "The status of each connector, operative or not."
+        tests:
+          - not_null
+
+      - name: connector_count
+        description: "Number of connectors in a charging station."
+        tests:
+          - not_null
