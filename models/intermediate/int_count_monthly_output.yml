@@ -1,0 +1,50 @@
+version: 2
+
+models:
+  - name: int_count_monthly_output
+    description: >
+      Monthly charging-infrastructure fact table at the grain of one TLA
+      per analysis month. It stores station count, operative connector
+      count, and theoretical monthly charging output.
+
+      The theoretical output is calculated as connector power in kW
+      multiplied by 8 operating hours and the number of days in the month.
+      The source data contains current connector status only, so current
+      status is applied to each reconstructed month from the station's
+      first operational month.
+
+    columns:
+      - name: tla_name
+        description: >
+          Name of the Territorial Local Authority for the monthly charging
+          measures. Unmatched stations are labelled UNMATCHED.
+        tests:
+          - not_null
+
+      - name: month_date
+        description: >
+          First calendar date of the analysis month.
+        tests:
+          - not_null
+
+      - name: station_count
+        description: >
+          Number of distinct charging stations associated with the TLA in
+          the analysis month.
+        tests:
+          - not_null
+
+      - name: active_connector_count
+        description: >
+          Number of Operative connectors associated with the TLA in the
+          analysis month.
+        tests:
+          - not_null
+
+      - name: monthly_theoretical_output_kwh
+        description: >
+          Theoretical monthly charging output of Operative connectors,
+          calculated as power in kW multiplied by 8 operating hours and the
+          number of days in the month.
+        tests:
+          - not_null

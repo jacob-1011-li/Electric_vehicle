@@ -1,0 +1,112 @@
+version: 2
+
+models:
+  - name: int_ev_tla_monthly
+    description: >
+      Monthly electric-vehicle demand model at the TLA grain. Each row
+      represents one TLA and one analysis month. BEV and PHEV registrations
+      are accumulated from the first registration month through the current
+      month. Charging demand is an assumption-based estimate rather than
+      actual charging-session data.
+
+    columns:
+      - name: tla_name
+        description: >
+          Territorial Local Authority where the vehicle is registered.
+        tests:
+          - not_null
+
+      - name: month_date
+        description: >
+          First day of the analysis month. The model grain is TLA plus this
+          month date.
+        tests:
+          - not_null
+
+      - name: new_bev_count
+        description: >
+          Number of BEVs first registered in the TLA during the month.
+        tests:
+          - not_null
+
+      - name: new_phev_count
+        description: >
+          Number of PHEVs first registered in the TLA during the month.
+        tests:
+          - not_null
+
+      - name: cumulative_bev_count
+        description: >
+          Cumulative number of BEVs first registered in the TLA up to and
+          including the month. Vehicle deregistration is not available in the
+          source data and is therefore not deducted.
+        tests:
+          - not_null
+
+      - name: cumulative_phev_count
+        description: >
+          Cumulative number of PHEVs first registered in the TLA up to and
+          including the month. Vehicle deregistration is not available in the
+          source data and is therefore not deducted.
+        tests:
+          - not_null
+
+      - name: cumulative_bev_equivalent_count
+        description: >
+          BEV-equivalent vehicle count calculated as cumulative BEVs plus
+          cumulative PHEVs multiplied by the configured PHEV capacity factor.
+        tests:
+          - not_null
+
+      - name: new_ev_demand_kwh
+        description: >
+          Estimated charger-side energy demand from BEVs and PHEVs first
+          registered during the month, measured in kWh.
+        tests:
+          - not_null
+
+      - name: estimated_ev_demand_kwh
+        description: >
+          Estimated cumulative charger-side energy demand from all target EVs
+          registered up to and including the month, measured in kWh.
+        tests:
+          - not_null
+
+      - name: assumed_bev_battery_capacity_kwh
+        description: >
+          Assumed average BEV battery capacity, currently 61.3 kWh.
+        tests:
+          - not_null
+
+      - name: assumed_phev_capacity_factor
+        description: >
+          Assumed PHEV capacity and charging-demand factor relative to a BEV,
+          currently 0.5.
+        tests:
+          - not_null
+
+      - name: assumed_monthly_distance_km
+        description: >
+          Assumed average monthly distance travelled by each vehicle, in km.
+        tests:
+          - not_null
+
+      - name: assumed_range_per_charge_km
+        description: >
+          Assumed distance supported by one equivalent full charge, in km.
+        tests:
+          - not_null
+
+      - name: assumed_charging_efficiency
+        description: >
+          Assumed charging efficiency used to convert battery-side demand to
+          charger-side demand, currently 0.90.
+        tests:
+          - not_null
+
+      - name: assumed_public_charging_share
+        description: >
+          Assumed proportion of vehicle charging demand assigned to public
+          chargers, currently 1.0.
+        tests:
+          - not_null

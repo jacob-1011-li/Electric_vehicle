@@ -1,0 +1,86 @@
+version: 2
+
+models:
+  - name: dim_ev
+    description: >
+      Electric vehicle dimension with one row per target electric vehicle.
+      The model is built from int_ev_select.
+
+    columns:
+      - name: vehicle_id
+        description: >
+          Durable source identifier of the registered vehicle.
+        data_tests:
+          - not_null
+          - unique
+
+      - name: ev_type
+        description: >
+          Electric vehicle type: BEV or PHEV.
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - BEV
+                  - PHEV
+
+      - name: tla_name
+        description: >
+          Territorial Local Authority associated with the vehicle.
+
+      - name: first_registration_month_date
+        description: >
+          First day of the vehicle's first registration month.
+        data_tests:
+          - not_null
+
+      - name: first_registration_year
+        description: >
+          Year extracted from first_registration_month_date.
+        data_tests:
+          - not_null
+
+      - name: first_registration_month
+        description: >
+          Month number extracted from first_registration_month_date.
+        data_tests:
+          - not_null
+
+      - name: assumed_bev_battery_capacity_kwh
+        description: >
+          Assumed BEV battery capacity in kWh. Default value is 61.3.
+        data_tests:
+          - not_null
+
+      - name: assumed_phev_capacity_factor
+        description: >
+          Assumed PHEV capacity factor relative to BEV. Default value is 0.5.
+        data_tests:
+          - not_null
+
+      - name: assumed_monthly_distance_km
+        description: >
+          Assumed monthly driving distance in km. Default value is 800.
+        data_tests:
+          - not_null
+
+      - name: assumed_range_per_charge_km
+        description: >
+          Assumed driving range per full charge in km. Default value is 400.
+        data_tests:
+          - not_null
+
+      - name: vehicle_capacity_factor
+        description: >
+          Vehicle-specific capacity factor. BEV equals 1.0 and PHEV equals
+          assumed_phev_capacity_factor.
+        data_tests:
+          - not_null
+
+      - name: assumed_battery_capacity_kwh
+        description: >
+          Vehicle-specific assumed battery capacity in kWh. PHEV is calculated
+          as BEV capacity multiplied by the PHEV capacity factor.
+        data_tests:
+          - not_null

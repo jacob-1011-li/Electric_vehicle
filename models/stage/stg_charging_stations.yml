@@ -1,0 +1,90 @@
+version: 2
+
+models:
+  - name: stg_charging_stations
+    description: >
+      Clean and standardized charging station data.
+      The grain is one row per charging station.
+
+    columns:
+      - name: station_ID
+        description: "Original OBJECTID from the source charging-station dataset."
+        tests:
+          - not_null
+          - unique
+
+      - name: latitude
+        description: "Charging station latitude, stored as NUMBER(10,6)."
+        tests:
+          - not_null
+
+      - name: longitude
+        description: "Charging station longitude, stored as NUMBER(10,6)."
+        tests:
+          - not_null
+
+      - name: first_operation_date
+        description: "Charging station first operation date."
+        tests:
+          - not_null
+
+      - name: station_global_ID
+        description: "Global unique identifier of the charging station."
+        tests:
+          - not_null
+          - unique
+
+      - name: connector_count
+        description: "Total number of connectors reported by the source dataset."
+
+      - name: connector_list_raw
+        description: >
+          Original connector information retained for later parsing,
+          including connector type, power, status, and count.
+
+      - name: first_operational_month
+        description: >
+          First day of the month in which the station became operational,
+          used for monthly analysis.
+        tests:
+          - not_null
+
+      - name: station_geography
+        description: >
+          Combine longitude and latitude into a geography point,
+          used for further TLA determine.
+        tests:
+          - not_null
+
+      - name: station_name
+        description: "Trim extra space of NAME."
+
+      - name: station_operator
+        description: "trim extra space of OPERATOR."
+      
+      - name: station_owner
+        description: "trim extra space of OWNER."
+
+      - name: station_address
+        description: "trim extra space of ADDRESS."
+
+      - name: station_is24Hours
+        description: "Indicates whether the station operates 24 hours a day."
+        data_type: as_boolean
+
+      - name: station_carParkCount
+        description: "Number of car parks associated with the charging station."
+
+      - name: station_has_carpark_cost
+        description: "Indicates whether the car park has a cost."
+        data_type: boolean
+
+      - name: station_max_time_limit
+        description: "Maximum parking or charging time limit for the station."
+
+      - name: station_has_tourist_attraction
+        description: "Indicates whether the station is associated with a tourist attraction."
+
+      - name: station_has_charging_cost
+        description: "Indicates whether charging at the station has a cost."
+        data_type: boolean

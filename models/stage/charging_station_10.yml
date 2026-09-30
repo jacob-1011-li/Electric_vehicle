@@ -1,0 +1,13 @@
+version: 2
+ 
+models:
+
+    - name: charging_station_10
+      description: "Start point of charging station dim table"
+      columns:
+          - name: station_id
+            description: "The primary key for this table"
+            tests:
+                - unique
+                - not_null
+ 

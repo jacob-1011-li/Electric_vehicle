@@ -1,0 +1,43 @@
+version: 2
+
+models:
+  - name: stg_vehicle_register
+    description: >
+      Clean and standardized vehicle register data.
+      The grain is one row per registered vehicle.
+
+    columns:
+      - name: vehicle_id
+        description: "Original OBJECTID from the source vehicle register dataset."
+        tests:
+          - not_null
+          - unique
+
+      - name: district_name
+        description: "Territorial Local Authority of the vehicle."
+
+      - name: motive_power
+        description: "The motive power of each vehicle."
+
+      - name: first_registration_year
+        description: "Year when the vehicle was first registered in New Zealand."
+
+      - name: first_registration_month
+        description: "Month when the vehicle was first registered in New Zealand."
+
+      - name: vehicle_make
+        description: "Vehicle manufacturer."
+
+      - name: vehicle_model
+        description: "Vehicle model."
+
+      - name: vehicle_type
+        description: "Type or classification of the vehicle."
+
+      - name: vehicle_usage
+        description: "Recorded usage of the vehicle."
+
+      - name: first_registration_month_date
+        description: >
+          First day of the vehicle's first registration month,
+          used for monthly analysis.

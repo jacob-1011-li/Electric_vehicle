@@ -1,0 +1,69 @@
+version: 2
+
+models:
+  - name: int_charging_stations_tla
+    description: >
+      Spatially maps each charging station to its New Zealand
+      Territorial Local Authority using geographic boundaries.
+      The grain is one row per charging station.
+
+    columns:
+      - name: station_id
+        description: >
+          Unique identifier of the charging station.
+
+        data_tests:
+          - not_null
+          - unique
+
+      - name: station_global_id
+        description: >
+          Global unique identifier of the charging station.
+
+        data_tests:
+          - not_null
+          - unique
+
+      - name: station_geography
+        description: >
+          Geographic point created from the station longitude and latitude.
+
+      - name: tla_code
+        description: >
+          Code of the Territorial Local Authority matched to the station.
+          This value is null when the station cannot be spatially matched.
+
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_tla_boundaries')
+                field: tla_code
+
+      - name: tla_name
+        description: >
+          Name of the matched Territorial Local Authority.
+
+      - name: tla_name_ascii
+        description: >
+          ASCII version of the Territorial Local Authority name.
+
+      - name: tla_name_key
+        description: >
+          Standardized uppercase key used for TLA matching and grouping.
+
+      - name: boundary_year
+        description: >
+          Year of the TLA boundary dataset used for spatial mapping.
+
+      - name: mapping_status
+        description: >
+          Indicates whether the charging station was successfully
+          matched to a Territorial Local Authority.
+
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - MATCHED
+                  - UNMATCHED

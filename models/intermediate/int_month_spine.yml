@@ -1,0 +1,41 @@
+version: 2
+
+models:
+  - name: int_month_spine
+    description: >
+      Continuous monthly calendar used to support month-end analysis,
+      cumulative calculations, monthly aggregation, and comparison
+      between charging infrastructure and registered electric vehicles.
+      The grain is one row per month.
+
+    columns:
+      - name: month_date
+        description: "First day of the month."
+        tests:
+          - not_null
+          - unique
+
+      - name: month_end_date
+        description: "Last day of the month."
+        tests:
+          - not_null
+          - unique
+
+      - name: month_key
+        description: "Numeric month key in YYYYMM format, for example 201501."
+        tests:
+          - not_null
+          - unique
+
+      - name: year_number
+        description: "Calendar year of the month."
+        tests:
+          - not_null
+
+      - name: month_number
+        description: "Month number within the year, from 1 to 12."
+        tests:
+          - not_null
+          - accepted_values:
+              arguments: 
+                values: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
