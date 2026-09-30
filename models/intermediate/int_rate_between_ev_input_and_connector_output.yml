@@ -1,0 +1,57 @@
+version: 2
+
+models:
+  - name: int_rate_between_ev_input_and_connector_output
+    description: >
+      Monthly comparison between estimated EV charging demand and theoretical
+      connector output for each official Territorial Local Authority.
+
+      The model grain is one row per TLA and analysis month.
+
+      Connector output is theoretical capacity calculated from connector power,
+      assumed operating hours, and the number of days in the month. It is not
+      measured electricity delivered from charging sessions.
+
+    columns:
+      - name: rate_sk
+        description: >
+          Deterministic surrogate key generated from tla_name and month_date.
+        data_tests:
+          - not_null
+          - unique
+
+      - name: tla_name
+        description: >
+          Official Territorial Local Authority name obtained from the TLA
+          boundary model.
+        data_tests:
+          - not_null
+
+      - name: month_date
+        description: >
+          First day of the analysis month. Together with tla_name, this
+          defines the model grain.
+        data_tests:
+          - not_null
+
+      - name: estimated_ev_demand_kwh
+        description: >
+          Estimated monthly charger-side energy demand from registered BEVs
+          and PHEVs in the TLA, measured in kWh.
+
+      - name: monthly_theoretical_output_kwh
+        description: >
+          Theoretical monthly energy output from operative connectors in the
+          TLA, measured in kWh.
+
+      - name: supply_demand_gap_kwh
+        description: >
+          Difference between theoretical connector output and estimated EV
+          demand. Positive values indicate surplus capacity, while negative
+          values indicate a capacity shortfall.
+
+      - name: connector_output_to_ev_input_rate
+        description: >
+          Theoretical connector output divided by estimated EV demand.
+          Values above 1 indicate that theoretical supply exceeds estimated
+          demand. The value is NULL when estimated demand is zero.

@@ -1,0 +1,67 @@
+version: 2
+
+models:
+  - name: dim_connector
+    description: >
+      Charging connector configuration dimension built from
+      int_charging_connectors_disassembly.
+
+      The grain is one row per connector configuration.
+      connector_count is retained from the source and is not expanded into
+      multiple physical connector rows.
+
+    columns:
+      - name: connector_key
+        description: >
+          Deterministic surrogate key generated from connector_config_id.
+        data_tests:
+          - not_null
+          - unique
+
+      - name: connector_config_id
+        description: >
+          Source identifier for the connector configuration.
+        data_tests:
+          - not_null
+          - unique
+
+      - name: station_id
+        description: >
+          Source identifier of the charging station associated with the
+          connector configuration.
+        data_tests:
+          - not_null
+
+      - name: station_global_id
+        description: >
+          Global identifier of the charging station obtained from the
+          station-to-TLA mapping.
+
+      - name: tla_name_key
+        description: >
+          Normalized Territorial Local Authority key obtained from the TLA
+          boundary mapping.
+
+      - name: first_operational_month
+        description: >
+          First month in which the associated charging station became
+          operational.
+
+      - name: power_kw
+        description: >
+          Rated power of the connector configuration in kW.
+
+      - name: connector_status
+        description: >
+          Operational status of the connector configuration, such as
+          OPERATIVE, INOPERATIVE, or UNKNOWN.
+
+      - name: connector_count
+        description: >
+          Number of physical connectors represented by this connector
+          configuration row.
+
+      - name: active_connector_count
+        description: >
+          Number of active connectors represented by the configuration based
+          on connector_status.

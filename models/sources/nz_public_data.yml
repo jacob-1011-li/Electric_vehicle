@@ -9,3 +9,4 @@ sources:
     tables:
       - name: motor_vehicle_raw
       - name: charging_station
+      - name: tla_boundaries_raw

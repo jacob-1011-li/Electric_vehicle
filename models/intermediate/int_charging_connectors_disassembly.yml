@@ -17,12 +17,12 @@ models:
         description: "Original object ID comes from dataset."
         tests:
           - not_null
-          
+
       - name: first_operational_month
         description: "The first operational date in yyyy-mm format."
         tests:
           - not_null
-      
+
       - name: connector_group_number
         description: "Indicate the position of current connector configuration within this station."
         tests:
