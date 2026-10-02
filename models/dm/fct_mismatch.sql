@@ -38,3 +38,4 @@ select *
 from combined
 order by 
     connector_output_to_ev_input_rate desc nulls last
+-- Because when calculate connector_output_to_ev_input_rate column, there envolves a null value case.

@@ -187,6 +187,8 @@ combined as (
 final as (
 
     select
+    -- md5() is used to generate a Hash value with a 32 places hexadecimal.
+    -- In this case, which is used to generate a unique serogate key to identify the row id. 
         md5(
             tla_name
             || '|'
@@ -202,7 +204,7 @@ final as (
             - estimated_ev_demand_kwh
             as supply_demand_gap_kwh,
 
-        case
+        case -- equal to "if else"
             when estimated_ev_demand_kwh > 0
                 then (
                     monthly_theoretical_output_kwh
